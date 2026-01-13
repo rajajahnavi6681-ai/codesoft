@@ -4,56 +4,41 @@
 using namespace std;
 
 int main() {
-    char choice;
+    srand(time(0));
 
-    do {
-        // Initialize random seed
-        srand(time(0));
+    int secretNumber = rand() % 100 + 1;
+    int guess;
+    int attempts = 0;
+    bool guessed = false;
 
-        // Generate random number between 1 and 100
-        int secretNumber = rand() % 100 + 1;
-        int guess;
-        int attempts = 0;
+    cout << "========================================\n";
+    cout << "        NUMBER GUESSING GAME\n";
+    cout << "========================================\n";
+    cout << "Guess the number between 1 and 100\n";
+    cout << "----------------------------------------\n";
 
-        cout << "====================================\n";
-        cout << "   🎯 NUMBER GUESSING GAME (C++)\n";
-        cout << "====================================\n";
-        cout << "I have selected a number between 1 and 100.\n";
-        cout << "Try to guess it!\n\n";
+    while (!guessed) {
+        cout << "Enter your guess: ";
+        cin >> guess;
 
-        while (true) {
-            cout << "Enter your guess: ";
-            cin >> guess;
+        attempts++;
 
-            // Input validation
-            if (cin.fail()) {
-                cin.clear();
-                cin.ignore(1000, '\n');
-                cout << "⚠️ Invalid input! Please enter a number.\n\n";
-                continue;
-            }
-
-            attempts++;
-
-            if (guess < secretNumber) {
-                cout << "📉 Too low! Try again.\n\n";
-            } 
-            else if (guess > secretNumber) {
-                cout << "📈 Too high! Try again.\n\n";
-            } 
-            else {
-                cout << "🎉 Congratulations! You guessed the correct number.\n";
-                cout << "🔢 Total attempts: " << attempts << "\n\n";
-                break;
-            }
+        if (guess > secretNumber) {
+            cout << "Too high. Try again.\n";
+        }
+        else if (guess < secretNumber) {
+            cout << "Too low. Try again.\n";
+        }
+        else {
+            cout << "Correct! You guessed the number.\n";
+            cout << "Number of attempts: " << attempts << "\n";
+            guessed = true;
         }
 
-        cout << "Do you want to play again? (y/n): ";
-        cin >> choice;
-        cout << "\n";
+        cout << "----------------------------------------\n";
+    }
 
-    } while (choice == 'y' || choice == 'Y');
+    cout << "Game Over. Thank you!\n";
 
-    cout << "👋 Thank you for playing!\n";
     return 0;
 }
